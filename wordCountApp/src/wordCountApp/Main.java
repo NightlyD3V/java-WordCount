@@ -14,32 +14,33 @@ public class Main
 
         //System.out.println(Arrays.toString(words));
 
-        //HASHSET
-        HashSet<String> hashWords = new HashSet<String>();
-        
+        //HASHMAP
+        HashMap<String, Integer> hashWords = new HashMap<String, Integer>();
+
         //EACH WORD
         for (String ss : words) {
             //System.out.println(ss);
-            hashWords.add(ss);
-        }
-        
-        for (String hashWord: hashWords) {
-            System.out.println(hashWord);
+            if (hashWords.containsKey(ss)) {
+                hashWords.put(ss, hashWords.get(ss) + 1);
+            } else {
+                hashWords.put(ss, 1);
+            }
         }
 
-        // //SORTING
-        // Collections.sort(unArrayList, new Comparator <UnitedNation>()
-        // {
-        //     public int compare (UnitedNation o1, UnitedNation o2)
-        //     {
-        //         return o1.getText().compareToIgnoreCase(o2.getText());
-        //     }
-        // });
-        // for (HashMap.Entry<Integer, UnitedNation> text : sortedMap)
-        // {
-        //     System.out.println("key: " + text.getKey() + " value: " + text.getValue());
-        // }
-        // System.out.println();
+        //PUT HASHMAP INTO ARRAYLIST
+        ArrayList<HashMap.Entry<String, Integer>> sortedMap = new ArrayList<HashMap.Entry<String, Integer>>();
+        sortedMap.addAll(hashWords.entrySet());
 
+        Collections.sort(sortedMap, new Comparator<Map.Entry<String, Integer>>()
+        {
+            public int compare (HashMap.Entry<String, Integer> o1, HashMap.Entry<String, Integer> o2)
+            {
+                return o2.getValue() - o1.getValue();
+            }
+        });
+
+        for (int i = 0; i < 1700; i++) {
+           System.out.println(sortedMap.get(i).getKey() + " " + sortedMap.get(i).getValue()); 
+        }
     }
 }
